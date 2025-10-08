@@ -1,0 +1,14 @@
+
+.centerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 1.5em;
+
+    & > div {
+        width: 100%;
+        @media screen { max-width: 600px; }
+    }
+}

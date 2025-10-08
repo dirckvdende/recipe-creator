@@ -1,6 +1,9 @@
 
+import CenterContent from "./components/center-content";
 import styles from "./page.module.scss";
 
 export default function Home() {
-    return "Hello World!"
+    return <CenterContent>
+        Hello World!
+    </CenterContent>
 }
