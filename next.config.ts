@@ -1,7 +1,10 @@
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+    // Export as a static website
+    output: "export",
+    trailingSlash: true,
 };
 
 export default nextConfig;

@@ -1,0 +1,17 @@
+
+.footer {
+    display: block;
+    text-align: center;
+    width: 100%;
+    color: #888;
+    font-size: .8em;
+    margin: 3em 0;
+
+    a {
+        color: inherit;
+
+        &:hover {
+            opacity: .7;
+        }
+    }
+}
