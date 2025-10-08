@@ -1,11 +1,14 @@
 
 .footer {
-    display: block;
+    display: none;
+    @media screen { display: block; }
     text-align: center;
     width: 100%;
     color: #888;
     font-size: .8em;
     margin: 3em 0;
+    box-sizing: border-box;
+    padding: 0 1em;
 
     a {
         color: inherit;
