@@ -1,15 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue"
 
-const count = ref(0);
+const count = ref({
+    test: 0,
+});
 
 function increment() {
-    count.value++;;
+    count.value.test++;
 }
 </script>
 
 <template>
-    <button @click="increment">{{ count }}</button>
+    <button @click="increment">{{ count.test }}</button>
     <div>
         <h1>Hello World!</h1>
     </div>
