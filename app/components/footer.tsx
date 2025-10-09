@@ -10,7 +10,7 @@ import Link from "next/link"
  */
 export default function Footer({}: Readonly<{}>) {
     return <footer className={styles.footer}>
-        View more of my projects on <Link href="https://dirck.dev">
-        dirck.dev</Link>
+        View more of my projects on <Link href="https://dirck.dev"
+        target="_blank">dirck.dev</Link>
     </footer>
 }

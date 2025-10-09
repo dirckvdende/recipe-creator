@@ -8,7 +8,7 @@ import MainContainer from "./components/main-container";
 
 // Default font in the app
 const fredoka = Fredoka({
-    variable: "--fredoka-sans",
+    variable: "--fredoka-font",
     subsets: ["latin"],
     weight: "variable",
 })

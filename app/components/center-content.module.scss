@@ -5,10 +5,10 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 1.5em;
+    @media screen { padding: 0 1cm; }
 
     & > div {
         width: 100%;
-        @media screen { max-width: 600px; }
+        @media screen { max-width: 17cm; }
     }
 }

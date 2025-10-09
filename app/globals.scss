@@ -1,6 +1,6 @@
 
 body {
-    font-family: "Fredoka", sans-serif;
+    font-family: var(--fredoka-font);
     font-size: 14pt;
     margin: 0;
 }
@@ -13,4 +13,5 @@ body {
     size: A4;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    margin: 2cm;
 }
