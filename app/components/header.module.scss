@@ -1,4 +1,6 @@
 
+@use "../constants.scss";
+
 .header {
     font-weight: bold;
     height: 3.5em;
@@ -15,6 +17,7 @@
     box-sizing: border-box;
     padding: 0 1cm;
     user-select: none;
+    border-bottom: 2px solid #ddd;
 
     .left {
         .title {
@@ -35,6 +38,15 @@
             align-items: stretch;
             margin: 0;
         }
+    }
+
+    @media screen and (max-width: constants.$mobile-width) {
+        flex-direction: column;
+        align-items: center;
+        padding: 1em 0;
+        height: auto;
+
+        .left { margin-bottom: .5em; }
     }
 }
 
