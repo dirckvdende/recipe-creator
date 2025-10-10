@@ -1,13 +1,10 @@
 
 <script setup lang="ts">
+    import { resetRecipe } from '~/recipe';
     import NavItem from './NavItem.vue';
 
     function printAction(): void {
         window.print()
-    }
-
-    function deleteAction(): void {
-
     }
 </script>
 
@@ -21,8 +18,8 @@
                 <NavItem icon="print" :onClick="printAction">
                     Print
                 </NavItem>
-                <NavItem icon="delete" :onClick="deleteAction">
-                    Delete all
+                <NavItem icon="delete" :onClick="resetRecipe">
+                    Reset
                 </NavItem>
             </ul>
         </div>
