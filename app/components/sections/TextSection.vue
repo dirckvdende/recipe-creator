@@ -26,6 +26,11 @@
 
 <style lang="scss" scoped>
     @use "~/assets/scss/common.scss";
+
+    .section-container:not(:hover) textarea:not(:focus) {
+        border-color: transparent;
+    }
+
     textarea {
         @extend %editable-text;
         height: auto;
