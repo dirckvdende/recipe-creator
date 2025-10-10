@@ -47,6 +47,7 @@
         padding: 0 1cm;
         user-select: none;
         border-bottom: 2px solid #ddd;
+        z-index: 100;
 
         .left {
             h1 {

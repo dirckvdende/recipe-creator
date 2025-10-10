@@ -10,11 +10,11 @@
     @media screen { border-color: #ddd; }
 
     &:hover {
-        border-color: #666;
+        border-color: #aaa;
     }
 
     &:focus {
-        border-color: #666;
+        border-color: #aaa;
         border-style: solid;
     }
 }
