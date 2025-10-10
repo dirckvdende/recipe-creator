@@ -15,16 +15,18 @@ useHead({
 <template>
     <Header />
     <CenterContent>
-        <input type="text" v-model="recipe.title" @input="console.log(recipe)" />
+        <input type="text" v-model="recipe.title" class="title" />
     </CenterContent>
     <Footer />
 </template>
 
 <style lang="scss" scoped>
-h1 {
-    color: green;
-    span {
-        color: red;
+    @use "~/assets/scss/common.scss";
+
+    .title {
+        @extend %editable-text;
+        width: 100%;
+        text-align: center;
+        font-size: 2em;
     }
-}
 </style>

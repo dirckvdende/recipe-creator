@@ -1,0 +1,19 @@
+
+%editable-text {
+    border: 1pt dashed transparent;
+    border-radius: 3pt;
+    outline: none;
+    font-family: inherit;
+    font-size: 1em;
+    padding: .2em 0;
+    @media screen { border-color: #aaa; }
+
+    &:hover {
+        border-color: #333;
+    }
+
+    &:focus {
+        border-color: #333;
+        border-style: solid;
+    }
+}

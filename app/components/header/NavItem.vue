@@ -1,9 +1,9 @@
 
 <script lang="ts" setup>
-const { onClick, icon } = defineProps<{
-    onClick?: () => void,
-    icon?: string,
-}>()
+    const { onClick, icon } = defineProps<{
+        onClick?: () => void,
+        icon?: string,
+    }>()
 </script>
 
 <template>
@@ -16,33 +16,33 @@ const { onClick, icon } = defineProps<{
 </template>
 
 <style lang="scss" scoped>
-li {
-    height: 100%;
-
-    button {
+    li {
         height: 100%;
-        border: none;
-        padding: 0 1.5em;
-        margin: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        cursor: pointer;
-        background-color: transparent;
-        font-family: inherit;
 
-        .icon {
-            margin-right: .5em;
-            font-size: 1.7em;
-        }
+        button {
+            height: 100%;
+            border: none;
+            padding: 0 1.5em;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            cursor: pointer;
+            background-color: transparent;
+            font-family: inherit;
 
-        .text {
-            font-size: 1.2em;
-        }
+            .icon {
+                margin-right: .5em;
+                font-size: 1.7em;
+            }
 
-        &:hover .text {
-            text-decoration: underline;
+            .text {
+                font-size: 1.2em;
+            }
+
+            &:hover .text {
+                text-decoration: underline;
+            }
         }
     }
-}
 </style>
