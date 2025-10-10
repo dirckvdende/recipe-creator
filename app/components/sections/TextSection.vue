@@ -5,21 +5,23 @@
         section: TextSection,
     }>()
     const textAreaRef = useTemplateRef("textarea")
+    // This code is only here because firefox and safari don't support the CSS
+    // property field-sizing yet :(
     function autoExtendTextArea() {
         let textArea = textAreaRef.value
         if (textArea == null)
             return
         textArea.style.height = "0"
-        textArea.style.height = `calc(${textArea.scrollHeight}px + .4em)`
+        textArea.style.height = `calc(${textArea.scrollHeight}px + 3pt)`
         console.log("extended")
     }
-    // TODO: Improve this to proper size
-    onMounted(() => setTimeout(autoExtendTextArea, 1))
+    onMounted(() => setTimeout(autoExtendTextArea, 100))
+    onUpdated(autoExtendTextArea)
 </script>
 
 <template>
     <textarea rows="1" v-model="section.content" @input="autoExtendTextArea"
-    ref="textarea" @change="autoExtendTextArea" />
+    ref="textarea" />
 </template>
 
 <style lang="scss" scoped>
@@ -31,5 +33,6 @@
         width: 100%;
         resize: none;
         overflow: hidden;
+        field-sizing: content;
     }
 </style>
