@@ -4,10 +4,16 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     font-variant: "wght" 100;
+    font-size: 14pt;
+    margin: 0;
 }
 
-h1 {
-    background-color: black;
+// Print page settings
+@page {
+    size: A4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: 2cm;
 }
 
 // Google icons

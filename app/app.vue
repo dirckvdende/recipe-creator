@@ -1,45 +1,23 @@
+
 <script setup lang="ts">
 
-import { ref } from "vue"
-import Text from "./Text.vue"
-import Header from "./header/Header.vue"
-
-const count = ref({
-    test: 0,
-    title: "Hello World!",
-    second: "Hey!",
-})
-
-function increment() {
-    count.value.test++
-}
-
-function updateTitle(event: FocusEvent) {
-    count.value.title = (event.target as HTMLElement).innerText
-    console.log(count.value)
-}
-
-function updateSecond(event: FocusEvent) {
-    count.value.second = (event.target as HTMLElement).innerText
-    console.log(count.value)
-}
+import { recipe } from "./recipe"
+import Header from "~/components/header/Header.vue"
+import CenterContent from "./components/CenterContent.vue"
+import Footer from "./components/Footer.vue"
 
 useHead({
-    title: "Recipe Creator",
+    title: useRuntimeConfig().public.siteName,
 })
 
 </script>
 
 <template>
     <Header />
-    <h1>hello <span>hey</span></h1>
-    <button @click="increment">{{ count.test }}</button>
-    <div>
-        <input type="text" v-model="count.title" @input="console.log(count)"></input>
-    </div>
-    <Text>
-        Hello World!
-    </Text>
+    <CenterContent>
+        <input type="text" v-model="recipe.title" @input="console.log(recipe)" />
+    </CenterContent>
+    <Footer />
 </template>
 
 <style lang="scss" scoped>
