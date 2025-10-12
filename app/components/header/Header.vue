@@ -16,10 +16,10 @@
         </div>
         <div class="right">
             <ul>
-                <NavItem icon="file_open" :onClick="importDialog">
+                <NavItem icon="download" :onClick="importDialog">
                     Import
                 </NavItem>
-                <NavItem icon="download" :onClick="exportDialog">
+                <NavItem icon="upload" :onClick="exportDialog">
                     Export
                 </NavItem>
                 <NavItem icon="print" :onClick="printAction">
