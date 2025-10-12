@@ -33,7 +33,7 @@
         z-index: 2;
         position: absolute;
         top: 0;
-        left: -5.5em;
+        left: -6.5em;
         min-height: 100%;
         padding-right: 1.5em;
         @media screen and (max-width: 800px) {
@@ -43,7 +43,7 @@
         }
 
         li {
-            padding: 0;
+            padding: 0 0 0 1em; 
 
             button {
                 border: none;

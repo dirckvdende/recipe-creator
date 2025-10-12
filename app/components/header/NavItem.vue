@@ -39,15 +39,13 @@
 
             .icon {
                 font-size: 1.7em;
+                @media screen and (max-width: 800px) { font-size: 2em; }
             }
             
             .text {
                 font-size: 1.2em;
                 margin-left: .5em;
-
-                @media screen and (max-width: 800px) {
-                    display: none;
-                }
+                @media screen and (max-width: 800px) { display: none; }
             }
 
             &:hover .text {
