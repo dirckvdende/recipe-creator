@@ -8,7 +8,8 @@
 </script>
 
 <template>
-    <Editable tag="p" :obj="section" name="content" />
+    <Editable tag="p" :obj="section" name="content"
+    replace-empty="Start writing here..." />
 </template>
 
 <style lang="scss" scoped>

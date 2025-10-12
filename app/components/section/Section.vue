@@ -42,7 +42,8 @@
 <template>
     <div class="section" :class="{ 'active-section':
     activeSection }">
-        <Editable tag="h2" :obj="section" name="title" class="section-title" />
+        <Editable tag="h2" :obj="section" name="title" class="section-title"
+        replace-empty="Section title" />
         <TextSection :section="section" v-if="section.type == 'text'" />
         <IngredientsSection :section="section" v-if="section.type ==
         'ingredients'" />
