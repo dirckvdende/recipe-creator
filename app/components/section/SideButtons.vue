@@ -32,20 +32,18 @@
         font-size: .7em;
         z-index: 2;
         position: absolute;
-        top: 50%;
-        left: 0;
+        top: 0;
+        left: -5.5em;
         min-height: 100%;
-        translate: -100% -50%;
         padding-right: 1.5em;
         @media screen and (max-width: 800px) {
             left: auto;
-            right: 0;
-            translate: 2.5em -50%;
+            right: -2.5em;
             padding: 0;
         }
 
         li {
-            padding: .1em 0;
+            padding: 0;
 
             button {
                 border: none;
