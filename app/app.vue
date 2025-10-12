@@ -5,43 +5,22 @@
     import CenterContent from "./components/CenterContent.vue"
     import Footer from "./components/Footer.vue"
     import Section from "./components/section/Section.vue"
-    import ButtonRow from "./components/ButtonRow.vue"
+    import ActionButtons from "./components/ActionButtons.vue"
 
     useHead({
         title: useRuntimeConfig().public.siteName,
     })
-
-    function addTextSection() {
-        recipe.sections.push({
-            type: "text",
-            title: "Description",
-            content: "A great recipe!",
-        })
-    }
 </script>
 
 <template>
     <Header />
     <CenterContent>
-        <Editable tag="h1" :obj="recipe" name="title" class="title" autofocus
+        <Editable tag="h1" :obj="recipe" name="title" class="title"
         replace-empty="Recipe" />
         <template v-for="section in recipe.sections">
             <Section :section="section" />
         </template>
-        <ButtonRow :buttons='[{
-            icon: "text_fields",
-            text: "Add text",
-            action: addTextSection,
-        }, {
-            icon: "grocery",
-            text: "Add ingredients",
-        }, {
-            icon: "format_list_numbered",
-            text: "Add steps",
-        }, {
-            icon: "image",
-            text: "Add image",
-        }]' />
+        <ActionButtons />
     </CenterContent>
     <Footer />
 </template>

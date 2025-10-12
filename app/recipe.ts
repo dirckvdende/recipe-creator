@@ -6,7 +6,16 @@ import { reactive } from "vue";
  */
 export type TextSection = {
     type: "text",
+    title: string,
     content: string,
+}
+
+/**
+ * Recipe section with just an image (no title)
+ */
+export type ImageSection = {
+    type: "image",
+    url: string,
 }
 
 /**
@@ -14,14 +23,14 @@ export type TextSection = {
  */
 export type IngredientsSection = {
     type: "ingredients",
+    title: string,
     // TODO
 }
 
 /**
  * Generic type of any recipe section
  */
-export type RecipeSection = { title: string } & (TextSection |
-IngredientsSection)
+export type RecipeSection = TextSection | ImageSection | IngredientsSection
 
 /**
  * Type of a recipe
@@ -55,6 +64,9 @@ function defaultRecipe(): Recipe {
             "elit. Consequatur mollitia accusantium aut magnam saepe illo " +
             "tempore nulla voluptatum! Ex, culpa pariatur in tenetur nam " +
             "corporis nulla. Est animi maxime expedita?",
+        }, {
+            type: "image",
+            url: "https://nutrenaworld.com/wp-content/uploads/2024/01/poultry_blog_why-keep-ducks_820x525.jpg",
         }],
     }
 }

@@ -1,0 +1,48 @@
+
+<script lang="ts" setup>
+    import { recipe } from '~/recipe';
+
+    function addTextSection() {
+        recipe.sections.push({
+            type: "text",
+            title: "Description",
+            content: "A great recipe!",
+        })
+    }
+
+    function addImageSection() {
+        const inputElement = document.createElement("input")
+        inputElement.type = "file"
+        inputElement.accept = "image/*"
+        inputElement.addEventListener("change", () => {
+            if (inputElement.files == null)
+                return
+            const file = inputElement.files[0]
+            if (file == undefined)
+                return
+            recipe.sections.push({
+                type: "image",
+                url: URL.createObjectURL(file),
+            })
+        })
+        inputElement.click()
+    }
+</script>
+
+<template>
+    <ButtonRow :buttons='[{
+        icon: "text_fields",
+        text: "Add text",
+        action: addTextSection,
+    }, {
+        icon: "grocery",
+        text: "Add ingredients",
+    }, {
+        icon: "format_list_numbered",
+        text: "Add steps",
+    }, {
+        icon: "image",
+        text: "Add image",
+        action: addImageSection,
+    }]' />
+</template>

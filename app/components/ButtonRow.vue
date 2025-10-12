@@ -26,13 +26,13 @@
         @media screen { display: flex; }
         list-style: none;
         padding: 0;
-        margin: 0;
+        margin: 1em 0;
         flex-direction: row;
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
         user-select: none;
-        font-size: .7em;
+        font-size: .75em;
 
         li {
             padding: .1em 0;

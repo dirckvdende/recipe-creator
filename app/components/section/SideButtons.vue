@@ -26,19 +26,21 @@
         margin: 0;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         flex-wrap: wrap;
         user-select: none;
         font-size: .7em;
         z-index: 2;
         position: absolute;
-        top: 0;
+        top: 50%;
         left: 0;
-        translate: -100% -5.5pt;
+        min-height: 100%;
+        translate: -100% -50%;
         padding-right: 1.5em;
         @media screen and (max-width: 800px) {
             left: auto;
             right: 0;
-            translate: 2.5em -5.5pt;
+            translate: 2.5em -50%;
             padding: 0;
         }
 

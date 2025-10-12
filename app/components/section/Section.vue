@@ -5,6 +5,7 @@
     import TextSection from './sections/TextSection.vue';
     import IngredientsSection from './sections/IngredientsSection.vue';
     import SideButtons from './SideButtons.vue';
+import ImageSection from './sections/ImageSection.vue';
     const { section } = defineProps<{
         section: RecipeSection,
     }>()
@@ -42,11 +43,10 @@
 <template>
     <div class="section" :class="{ 'active-section':
     activeSection }">
-        <Editable tag="h2" :obj="section" name="title" class="section-title"
-        replace-empty="Section title" />
         <TextSection :section="section" v-if="section.type == 'text'" />
         <IngredientsSection :section="section" v-if="section.type ==
         'ingredients'" />
+        <ImageSection :section="section" v-if="section.type == 'image'" />
         <SideButtons class="side-buttons" :buttons='[{
             icon: "keyboard_arrow_up",
             action: moveUp,
