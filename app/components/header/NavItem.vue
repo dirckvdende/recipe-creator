@@ -7,17 +7,17 @@
 </script>
 
 <template>
-    <li>
+    <li :class="$style.item">
         <button @click="onClick?.()">
-            <span class="icon material-symbols-outlined">{{ icon ?? "menu" }}</span>
-            <span class="text"><slot /></span>
+            <span :class="$style.icon" class="material-symbols-outlined">{{ icon ?? "menu" }}</span>
+            <span :class="$style.text"><slot /></span>
         </button>
     </li>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     @use "~/assets/scss/constants";
-    li {
+    .item {
         height: 100%;
 
         @media screen and (max-width: constants.$mobile-width) {

@@ -5,7 +5,7 @@
     import TextSection from './sections/TextSection.vue';
     import IngredientsSection from './sections/IngredientsSection.vue';
     import SideButtons from './SideButtons.vue';
-import ImageSection from './sections/ImageSection.vue';
+    import ImageSection from './sections/ImageSection.vue';
     const { section } = defineProps<{
         section: RecipeSection,
     }>()
@@ -41,13 +41,12 @@ import ImageSection from './sections/ImageSection.vue';
 </script>
 
 <template>
-    <div class="section" :class="{ 'active-section':
-    activeSection }">
+    <div :class="[{ 'active-section': activeSection }, $style.section ]">
         <TextSection :section="section" v-if="section.type == 'text'" />
         <IngredientsSection :section="section" v-if="section.type ==
         'ingredients'" />
         <ImageSection :section="section" v-if="section.type == 'image'" />
-        <SideButtons class="side-buttons" :buttons='[{
+        <SideButtons :class="$style['side-buttons']" :buttons='[{
             icon: "keyboard_arrow_up",
             action: moveUp,
         }, {
@@ -60,26 +59,21 @@ import ImageSection from './sections/ImageSection.vue';
     </div>
 </template>
 
-<style lang="scss">
-    .side-buttons:not(.active-section .side-buttons):not(.section:hover
+<style lang="scss" module>
+    .side-buttons:not(:global(.active-section) .side-buttons):not(.section:hover
     .side-buttons) {
         display: none;
     }
     .section {
         position: relative;
         
-        .section-title {
+        :global(.section-title) {
             margin: .2em 0;
             font-size: 1.4em;
             width: 100%;
             display: block;
             width: 100%;
             font-weight: 500;
-        }
-
-        &:hover .bottom-buttons,
-        &.active-section .bottom-buttons {
-            @media screen { display: flex; }
         }
     }
 </style>

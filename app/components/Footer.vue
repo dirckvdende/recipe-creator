@@ -1,10 +1,11 @@
 
 <template>
-    <footer>View more of my projects at <a href="https://dirck.dev/">dirck.dev</a></footer>
+    <footer :class="$style.footer">View more of my projects at
+    <a href="https://dirck.dev/">dirck.dev</a></footer>
 </template>
 
-<style lang="scss" scoped>
-    footer {
+<style lang="scss" module>
+    .footer {
         display: none;
         text-align: center;
         width: 100%;
