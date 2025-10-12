@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
     import { resetRecipe } from '~/recipe';
+    import { importDialog, exportDialog } from '~/recipe_files';
     import NavItem from './NavItem.vue';
 
     function printAction(): void {
@@ -15,6 +16,12 @@
         </div>
         <div class="right">
             <ul>
+                <NavItem icon="file_open" :onClick="importDialog">
+                    Import
+                </NavItem>
+                <NavItem icon="download" :onClick="exportDialog">
+                    Export
+                </NavItem>
                 <NavItem icon="print" :onClick="printAction">
                     Print
                 </NavItem>
@@ -76,7 +83,7 @@
             padding: 1em 0;
             height: auto;
 
-            .left { margin-bottom: .5em; }
+            .left { margin-bottom: 1em; }
         }
     }
 

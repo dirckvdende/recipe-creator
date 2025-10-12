@@ -16,8 +16,14 @@
 </template>
 
 <style lang="scss" scoped>
+    @use "~/assets/scss/constants";
     li {
         height: 100%;
+
+        @media screen and (max-width: constants.$mobile-width) {
+            height: 2em;
+            button { border-radius: 3pt; }
+        }
 
         button {
             height: 100%;
@@ -32,16 +38,26 @@
             font-family: inherit;
 
             .icon {
-                margin-right: .5em;
                 font-size: 1.7em;
             }
-
+            
             .text {
                 font-size: 1.2em;
+                margin-left: .5em;
+
+                @media screen and (max-width: 800px) {
+                    display: none;
+                }
             }
 
             &:hover .text {
                 text-decoration: underline;
+            }
+
+            @media screen and (max-width: 800px) {
+                &:hover {
+                    background-color: #8882;
+                }
             }
         }
     }
