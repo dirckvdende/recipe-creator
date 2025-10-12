@@ -33,9 +33,9 @@
     function handleFocus() {
         setActiveSectionValue(true)
     }
-    const activeSection = inject<Ref<boolean>>("activeSection")
+    const activeSection = inject<Ref<boolean> | null>("activeSection", null)
     function setActiveSectionValue(value: boolean) {
-        if (activeSection == undefined)
+        if (activeSection == null)
             return
         activeSection.value = value
     }
