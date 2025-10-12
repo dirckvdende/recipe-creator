@@ -15,7 +15,7 @@
         inputElement.type = "file"
         inputElement.accept = "image/*"
         inputElement.addEventListener("change", () => {
-            if (inputElement.files == null)
+            if (inputElement.files == null || inputElement.files.length == 0)
                 return
             const file = inputElement.files[0]
             if (file == undefined)
