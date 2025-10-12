@@ -227,7 +227,7 @@ export class Uint8Decoder {
      * Read raw bytes from the input data
      * @returns The raw bytes that were read
      */
-    readBytes(length: number | bigint): Uint8Array {
+    readBytes(length: number | bigint): Uint8Array<ArrayBuffer> {
         if (this.index + Number(length) > this.data.length)
             throw new Error(`Input not long enough to read ${length} bytes`);
         let bytes = this.data.slice(this.index, this.index + Number(length));

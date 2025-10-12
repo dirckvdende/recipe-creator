@@ -22,15 +22,17 @@ sectionTypes.forEach((value, index) => sectionMapping.set(value, index))
  * data file
  */
 export function exportDialog() {
-    const blob = new Blob([serializeRecipe(recipe)], {
-        type: "application/octet-stream",
+    serializeRecipe(recipe).then((data) => {
+        const blob = new Blob([data], {
+            type: "application/octet-stream",
+        })
+        const url = URL.createObjectURL(blob)
+        const downloadLink = document.createElement("a")
+        downloadLink.href = url
+        downloadLink.download = `${toValidFilename(recipe.title)}.recipe`
+        downloadLink.click()
+        URL.revokeObjectURL(url)
     })
-    const url = URL.createObjectURL(blob)
-    const downloadLink = document.createElement("a")
-    downloadLink.href = url
-    downloadLink.download = `${toValidFilename(recipe.title)}.recipe`
-    downloadLink.click()
-    URL.revokeObjectURL(url)
 }
 
 /**
@@ -55,10 +57,11 @@ export function importDialog() {
         const file = inputElement.files[0]
         if (file == undefined)
             return
-        file.arrayBuffer().then((buffer) => {
-            const loadedRecipe = deserializeRecipe(new Uint8Array(buffer))
-            Object.assign(recipe, loadedRecipe)
-        })
+        file.arrayBuffer().then((buffer) =>
+            deserializeRecipe(new Uint8Array(buffer)).then((loadedRecipe) =>
+                Object.assign(recipe, loadedRecipe)
+            )
+        )
     })
     inputElement.click()
 }
@@ -68,7 +71,8 @@ export function importDialog() {
  * @param recipe The recipe to serialize
  * @returns The serialized version of the recipe, as a Uint8Array
  */
-function serializeRecipe(recipe: Recipe): Uint8Array<ArrayBuffer> {
+async function serializeRecipe(recipe: Recipe): Promise<Uint8Array<ArrayBuffer>>
+{
     const encoder = new Uint8Encoder()
     encoder.writeBytes(ID_BYTES)
     encoder.writeInt(ENCODING_VERSION, 8, false)
@@ -82,7 +86,7 @@ function serializeRecipe(recipe: Recipe): Uint8Array<ArrayBuffer> {
         encoder.writeInt(index, 4, false)
         switch (section.type) {
             case "text": serializeTextSection(encoder, section); break
-            case "image":serializeImageSection(encoder, section); break
+            case "image": await serializeImageSection(encoder, section); break
             case "ingredients": serializeIngredientsSection(encoder, section);
                 break
         }
@@ -95,7 +99,8 @@ function serializeRecipe(recipe: Recipe): Uint8Array<ArrayBuffer> {
  * @param data The data to deserialize
  * @returns The deserialized recipe
  */
-function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Recipe {
+async function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Promise<Recipe>
+{
     const decoder = new Uint8Decoder(data)
     decoder.checkBytes(ID_BYTES)
     const version = decoder.readInt(8, false)
@@ -115,8 +120,8 @@ function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Recipe {
         switch (sectionType) {
             case "text": recipe.sections.push(deserializeTextSection(decoder));
                 break
-            case "image": recipe.sections.push(deserializeImageSection(decoder)
-                ); break
+            case "image": recipe.sections.push(await deserializeImageSection(
+                decoder)); break
             case "ingredients": recipe.sections.push(
                 deserializeIngredientsSection(decoder)); break
         }
@@ -153,8 +158,25 @@ function deserializeTextSection(decoder: Uint8Decoder): TextSection {
  * @param encoder The encoder to write the serialized version to
  * @param section The section to serialize
  */
-function serializeImageSection(encoder: Uint8Encoder, section: ImageSection) {
-    // TODO
+async function serializeImageSection(encoder: Uint8Encoder, section:
+ImageSection) {
+    const content = await new Promise((resolve: (value: Uint8Array<ArrayBuffer>)
+    => void, reject: () => void) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET", section.url)
+        xhr.responseType = "arraybuffer"
+        xhr.onload = () => {
+            if (xhr.status < 200 || xhr.status >= 300)
+                reject()
+            else
+                resolve(new Uint8Array(xhr.response))
+        }
+        xhr.onerror = reject
+        xhr.send()
+    })
+    console.log(content)
+    encoder.writeInt(content.length, 4, false)
+    encoder.writeBytes(content)
 }
 
 /**
@@ -163,11 +185,13 @@ function serializeImageSection(encoder: Uint8Encoder, section: ImageSection) {
  * @param decoder The decoder to get the serialized data from
  * @returns The deserialized section
  */
-function deserializeImageSection(decoder: Uint8Decoder): ImageSection {
-    // TODO
+async function deserializeImageSection(decoder: Uint8Decoder):
+Promise<ImageSection> {
+    const length = decoder.readInt(4, false)
+    const blob = new Blob([decoder.readBytes(length)])
     return {
         type: "image",
-        url: "error",
+        url: URL.createObjectURL(blob)
     }
 }
 
