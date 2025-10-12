@@ -9,7 +9,7 @@ import { Uint8Decoder, Uint8Encoder } from "./uint8encoding.js";
 const ID_BYTES = new Uint8Array([0x89, 0x66, 0x61, 0x6d, 0x69, 0x6c, 0x79, 0x2d,
 0x74, 0x72, 0x65, 0x65, 0x0d, 0x0a, 0x1a, 0x0a]);
 // Version number of encoding (stored as unsigned 64-bit)
-const ENCODING_VERSION = 1n;
+const ENCODING_VERSION = 3n;
 
 // Names of section types
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients"]
@@ -160,23 +160,11 @@ function deserializeTextSection(decoder: Uint8Decoder): TextSection {
  */
 async function serializeImageSection(encoder: Uint8Encoder, section:
 ImageSection) {
-    const content = await new Promise((resolve: (value: Uint8Array<ArrayBuffer>)
-    => void, reject: () => void) => {
-        const xhr = new XMLHttpRequest()
-        xhr.open("GET", section.url)
-        xhr.responseType = "arraybuffer"
-        xhr.onload = () => {
-            if (xhr.status < 200 || xhr.status >= 300)
-                reject()
-            else
-                resolve(new Uint8Array(xhr.response))
-        }
-        xhr.onerror = reject
-        xhr.send()
-    })
-    console.log(content)
-    encoder.writeInt(content.length, 4, false)
-    encoder.writeBytes(content)
+    const response = await fetch(section.url)
+    const blob = await response.blob()
+    encoder.writeString(blob.type)
+    encoder.writeInt(blob.size, 4, false)
+    encoder.writeBytes(new Uint8Array(await blob.arrayBuffer()))
 }
 
 /**
@@ -187,8 +175,9 @@ ImageSection) {
  */
 async function deserializeImageSection(decoder: Uint8Decoder):
 Promise<ImageSection> {
+    const mimeType = decoder.readString()
     const length = decoder.readInt(4, false)
-    const blob = new Blob([decoder.readBytes(length)])
+    const blob = new Blob([decoder.readBytes(length)], { type: mimeType })
     return {
         type: "image",
         url: URL.createObjectURL(blob)
