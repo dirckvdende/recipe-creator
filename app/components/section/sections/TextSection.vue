@@ -1,7 +1,7 @@
 
 <script lang="ts" setup>
     import { type TextSection } from '~/recipe';
-import Editable from '../../Editable.vue';
+    import Editable from '../../Editable.vue';
     const { section } = defineProps<{
         section: TextSection,
     }>()

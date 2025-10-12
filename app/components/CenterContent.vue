@@ -1,13 +1,13 @@
 
 <template>
-    <div class="container">
+    <div :class="$style.container">
         <div>
             <slot />
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     @use "~/assets/scss/constants";
 
     .container {

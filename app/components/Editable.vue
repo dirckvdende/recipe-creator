@@ -58,18 +58,19 @@
         position: relative;
         outline: none;
     }
-    :global(.section:hover) .element::before,
-    :global(.active-section) .element::before,
-    .element:not(:global(.section) .element)::before {
+    .element::before {
         content: "";
         position: absolute;
         left: -8pt;
         right: -8pt;
         top: -4pt;
         bottom: -4pt;
-        @media screen { border: 1.5pt dashed #ddd; }
         pointer-events: none;
         border-radius: 3pt;
+    }
+    :global(.section:hover) .element::before,
+    :global(.active-section) .element::before {
+        @media screen { border: 1.5pt dashed #ddd; }
     }
     .element:hover::before {
         border: 1.5pt dashed #aaa !important;
