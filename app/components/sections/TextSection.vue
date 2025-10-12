@@ -1,27 +1,14 @@
 
 <script lang="ts" setup>
     import { type TextSection } from '~/recipe';
+import Editable from '../Editable.vue';
     const { section } = defineProps<{
         section: TextSection,
     }>()
-    const textAreaRef = useTemplateRef("textarea")
-    // This code is only here because firefox and safari don't support the CSS
-    // property field-sizing yet :(
-    function autoExtendTextArea() {
-        let textArea = textAreaRef.value
-        if (textArea == null)
-            return
-        textArea.style.height = "0"
-        textArea.style.height = `calc(${textArea.scrollHeight}px + 3pt)`
-        console.log("extended")
-    }
-    onMounted(() => setTimeout(autoExtendTextArea, 100))
-    onUpdated(autoExtendTextArea)
 </script>
 
 <template>
-    <textarea rows="1" v-model="section.content" @input="autoExtendTextArea"
-    ref="textarea" />
+    <Editable tag="p" :obj="section" name="content" />
 </template>
 
 <style lang="scss" scoped>
