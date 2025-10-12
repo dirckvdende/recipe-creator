@@ -41,7 +41,8 @@
 </script>
 
 <template>
-    <div :class="[{ 'active-section': activeSection }, $style.section ]">
+    <div class="section" :class="[{ 'active-section': activeSection },
+    $style.section ]">
         <TextSection :section="section" v-if="section.type == 'text'" />
         <IngredientsSection :section="section" v-if="section.type ==
         'ingredients'" />
