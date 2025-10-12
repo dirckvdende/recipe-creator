@@ -1,11 +1,12 @@
 
 <script lang="ts" setup>
+    import { provide } from 'vue';
     import { recipe, type RecipeSection } from '~/recipe';
     import TextSection from './sections/TextSection.vue';
     import IngredientsSection from './sections/IngredientsSection.vue';
     const { section } = defineProps<{
         section: RecipeSection,
-    }>();
+    }>()
 
     function addTextSection() {
         recipe.sections.splice(recipe.sections.indexOf(section) + 1, 0, {
@@ -14,11 +15,15 @@
             content: "A great recipe!",
         })
     }
+
+    const activeSection = ref(false)
+    provide("activeSection", activeSection)
 </script>
 
 <template>
-    <div class="section-container">
-        <input class="section-title" type="text" v-model="section.title" />
+    <div class="section section-container" :class="{ 'active-section':
+    activeSection }">
+        <Editable tag="h2" :obj="section" name="title" class="section-title" />
         <TextSection :section="section" v-if="section.type == 'text'" />
         <IngredientsSection :section="section" v-if="section.type ==
         'ingredients'" />
@@ -55,17 +60,10 @@
 </template>
 
 <style lang="scss" scoped>
-    @use "~/assets/scss/common.scss";
-
-    .section-container:not(:hover) .section-title:not(:focus) {
-        border-color: transparent;
-    }
-
     .section-container {
         position: relative;
         
         .section-title {
-            @extend %editable-text;
             margin: .2em 0;
             font-size: 1.4em;
             width: 100%;

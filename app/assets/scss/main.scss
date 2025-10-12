@@ -1,4 +1,6 @@
 
+@use "constants";
+
 body {
     font-family: "Fredoka", sans-serif;
     font-optical-sizing: auto;
@@ -12,7 +14,7 @@ body {
     size: A4;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    margin: 2cm;
+    margin: constants.$page-margin;
 }
 
 // Google icons

@@ -8,6 +8,8 @@
 </template>
 
 <style lang="scss" scoped>
+    @use "~/assets/scss/constants";
+
     .container {
         display: flex;
         flex-direction: column;
@@ -21,7 +23,9 @@
 
         & > div {
             width: 100%;
-            @media screen { max-width: 17cm; }
+            @media screen {
+                max-width: calc(21cm - 2 * constants.$page-margin);
+            }
         }
     }
 </style>
