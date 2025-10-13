@@ -104,7 +104,8 @@ async function serializeRecipe(recipe: Recipe): Promise<Uint8Array<ArrayBuffer>>
 async function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Promise<Recipe>
 {
     const decoder = new Uint8Decoder(data)
-    decoder.checkBytes(ID_BYTES)
+    if (!decoder.checkBytes(ID_BYTES))
+        throw new Error("Could not import file: unrecognized format")
     const version = decoder.readInt(8, false)
     if (version != ENCODING_VERSION)
         throw new Error(`Incompatible format version, found ${version} while ` +
