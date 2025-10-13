@@ -123,7 +123,7 @@
                 flex-grow: 0;
                 width: 1em;
                 height: 1em;
-                border: 2pt solid #999;
+                border: 2pt solid #bbb;
                 border-radius: 3pt;
                 margin-right: 12pt;
                 cursor: pointer;
