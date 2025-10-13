@@ -16,7 +16,7 @@
 <template>
     <Header />
     <CenterContent>
-        <Editable tag="h1" :obj="recipe" name="title" class="title"
+        <Editable tag="h1" :obj="recipe" name="title" :class="$style.title"
         replace-empty="Recipe" />
         <template v-for="section in recipe.sections">
             <Section :section="section" />
@@ -27,11 +27,11 @@
     <ErrorToasts />
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
     .title {
         width: 100%;
         text-align: center;
-        font-size: 2em;
+        font-size: 2.5em;
         margin: 0 0 .5em 0;
         font-weight: 400;
     }

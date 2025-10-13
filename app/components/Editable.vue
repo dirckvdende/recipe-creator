@@ -32,7 +32,15 @@
         setActiveSectionValue(false)
     }
     function handleFocus() {
-        setActiveSectionValue(true)
+        setActiveSectionValue(true);
+        if (contentRef.value == null)
+            return
+        const range = document.createRange()
+        range.selectNodeContents(contentRef.value)
+        range.collapse(false)
+        const selection = getSelection()
+        selection?.removeAllRanges()
+        selection?.addRange(range)
     }
     const activeSection = inject<Ref<boolean> | null>("activeSection", null)
     function setActiveSectionValue(value: boolean) {

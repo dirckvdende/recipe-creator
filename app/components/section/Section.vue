@@ -69,12 +69,12 @@
         position: relative;
         
         :global(.section-title) {
-            margin: .2em 0;
-            font-size: 1.4em;
+            margin: .4em 0;
+            font-size: 1.8em;
             width: 100%;
             display: block;
             width: 100%;
-            font-weight: 500;
+            font-weight: 400;
         }
     }
 </style>
