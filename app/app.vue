@@ -11,6 +11,12 @@
     useHead({
         title: useRuntimeConfig().public.siteName,
     })
+
+    // Warning on page exit, when not in dev mode
+    if (!import.meta.dev)
+        window.addEventListener("beforeunload", (event) => {
+            event.preventDefault()
+        })
 </script>
 
 <template>
