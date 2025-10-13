@@ -26,7 +26,7 @@
         @media screen { display: flex; }
         list-style: none;
         padding: 0;
-        margin: 1em 0;
+        margin: 2em 0;
         flex-direction: row;
         width: 100%;
         justify-content: center;
