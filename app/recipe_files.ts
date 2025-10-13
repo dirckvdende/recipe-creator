@@ -1,15 +1,17 @@
 
 import { recipe, type IngredientsSection, type Recipe, type TextSection,
 type ImageSection, 
-type RecipeSection} from "./recipe";
-import { Uint8Decoder, Uint8Encoder } from "./uint8encoding.js";
+type RecipeSection,
+type Ingredient} from "./recipe";
+import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
+} from "./uint8encoding.js";
 
 // Bytes that should be at the start of every recipe data file. Similar to PNG
 // files (see https://en.wikipedia.org/wiki/PNG#File_format)
 const ID_BYTES = new Uint8Array([0x89, 0x66, 0x61, 0x6d, 0x69, 0x6c, 0x79, 0x2d,
 0x74, 0x72, 0x65, 0x65, 0x0d, 0x0a, 0x1a, 0x0a]);
 // Version number of encoding (stored as unsigned 64-bit)
-const ENCODING_VERSION = 3n;
+const ENCODING_VERSION = 4n;
 
 // Names of section types
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients"]
@@ -83,7 +85,7 @@ async function serializeRecipe(recipe: Recipe): Promise<Uint8Array<ArrayBuffer>>
         if (index == undefined)
             throw new Error(`Not inverse mapping for section type ` +
             `${section.type}`)
-        encoder.writeInt(index, 4, false)
+        encoder.writeInt(index, bytesNeededForRange(sectionTypes.length), false)
         switch (section.type) {
             case "text": serializeTextSection(encoder, section); break
             case "image": await serializeImageSection(encoder, section); break
@@ -113,7 +115,8 @@ async function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Promise<Recipe>
     }
     const sectionCount = decoder.readInt(4, false)
     for (let i = 0; i < sectionCount; i++) {
-        const index = decoder.readInt(4, false)
+        const index = decoder.readInt(bytesNeededForRange(sectionTypes.length),
+        false)
         const sectionType = sectionTypes[Number(index)]
         if (sectionType == undefined)
             throw new Error(`Unrecognized section type with index ${index}`)
@@ -192,7 +195,12 @@ Promise<ImageSection> {
  */
 function serializeIngredientsSection(encoder: Uint8Encoder, section:
 IngredientsSection) {
-    // TODO
+    encoder.writeString(section.title)
+    encoder.writeInt(section.ingredients.length, 4, false)
+    for (const ingredient of section.ingredients) {
+        encoder.writeString(ingredient.amount)
+        encoder.writeString(ingredient.name)
+    }
 }
 
 /**
@@ -203,9 +211,17 @@ IngredientsSection) {
  */
 function deserializeIngredientsSection(decoder: Uint8Decoder):
 IngredientsSection {
-    // TODO
+    const title = decoder.readString()
+    const length = decoder.readInt(4, false)
+    const ingredients: Ingredient[] = []
+    for (let i = 0; i < length; i++)
+        ingredients.push({
+            amount: decoder.readString(),
+            name: decoder.readString(),
+        })
     return {
         type: "ingredients",
-        title: "Ingredients"
+        title,
+        ingredients,
     }
 }

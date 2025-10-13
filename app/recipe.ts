@@ -19,12 +19,20 @@ export type ImageSection = {
 }
 
 /**
+ * Ingredients in an ingredients section
+ */
+export type Ingredient = {
+    amount: string,
+    name: string,
+}
+
+/**
  * Recipe section with ingredients
  */
 export type IngredientsSection = {
     type: "ingredients",
     title: string,
-    // TODO
+    ingredients: Ingredient[],
 }
 
 /**

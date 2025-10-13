@@ -255,3 +255,14 @@ export class Uint8Decoder {
     }
 
 }
+
+/**
+ * Get the number of bytes needed to store the given amount of different values,
+ * i.e. ceil(log2(amount) / 8)
+ * @param amount The amount of different values that should be able to be
+ * encoded, i.e. the range [0, amount - 1]
+ * @returns The number of bytes needed
+ */
+export function bytesNeededForRange(amount: number): number {
+    return Math.ceil(Math.log2(amount) / 8)
+}
