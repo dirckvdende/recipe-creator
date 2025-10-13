@@ -18,7 +18,13 @@
     }
 
     // Extra empty item at the end of the list to be able to add items
-    let extraItem: Ingredient = reactive({amount: "", name: "", checked: false})
+    let extraItem: {ingredient: Ingredient} = reactive({
+        ingredient: {
+            amount: "",
+            name: "",
+            checked: false,
+        }
+    })
 
     /**
      * Generator for all ingredients plus the extra item at the end (which is
@@ -28,7 +34,7 @@
     function* ingredients(): Generator<Ingredient> {
         for (const ingredient of section.ingredients)
             yield ingredient
-        yield extraItem
+        yield extraItem.ingredient
     }
 
     /**
@@ -37,16 +43,20 @@
      * to a new empty item
      */
     function updateExtra() {
-        if (extraItem.amount == "" && extraItem.name == "")
+        if (extraItem.ingredient.amount == "" &&
+        extraItem.ingredient.name == "")
             return
-        section.ingredients.push(extraItem)
-        extraItem = reactive({amount: "", name: "", checked: false})
-        console.log('watch extra')
+        section.ingredients.push(extraItem.ingredient)
+        extraItem.ingredient = {
+            amount: "",
+            name: "",
+            checked: false,
+        }
     }
 
     // Watch changes to the extra item to add it if it is no longer empty
-    watch(() => extraItem.amount, updateExtra)
-    watch(() => extraItem.name, updateExtra)
+    watch(() => extraItem.ingredient.amount, updateExtra)
+    watch(() => extraItem.ingredient.name, updateExtra)
 </script>
 
 <template>
