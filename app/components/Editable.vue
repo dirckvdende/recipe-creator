@@ -1,26 +1,27 @@
 
 <script lang="ts" setup>
-    const { tag, obj, name, replaceEmpty } = defineProps<{
+    let { tag, obj, name, replaceEmpty } = defineProps<{
         // Tag name of the component
         tag: keyof HTMLElementTagNameMap,
         // Parent object to track
-        obj: {[key: string]: any},
+        obj?: {[key: string]: any},
         // Name of the property in the object
-        name: string,
+        name?: string,
         // Replace any empty value on blur with the given value. Value only
         // consisting of whitespace are also replaced
         replaceEmpty?: string,
     }>()
     onMounted(updateToElement)
-    watch(() => obj[name], updateToElement)
+    if (obj != undefined && name != undefined)
+        watch(() => obj[name], updateToElement)
     const contentRef = useTemplateRef<HTMLElement>("editable-element")
     function updateFromElement() {
-        if (contentRef.value == null)
+        if (contentRef.value == null || obj == undefined || name == undefined)
             return
         obj[name] = contentRef.value.innerText
     }
     function updateToElement() {
-        if (contentRef.value == null)
+        if (contentRef.value == null || obj == undefined || name == undefined)
             return
         if (contentRef.value.innerText == obj[name] || obj[name] == undefined)
             return
@@ -40,7 +41,8 @@
         activeSection.value = value
     }
     function replaceEmptyContent() {
-        if (replaceEmpty == undefined || contentRef.value == null)
+        if (replaceEmpty == undefined || contentRef.value == null ||
+        obj == undefined || name == undefined)
             return
         if (contentRef.value.innerText.trim() == "")
             obj[name] = replaceEmpty
