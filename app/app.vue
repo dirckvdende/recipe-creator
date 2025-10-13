@@ -6,6 +6,7 @@
     import Footer from "./components/Footer.vue"
     import Section from "./components/section/Section.vue"
     import ActionButtons from "./components/ActionButtons.vue"
+    import ErrorToasts from "./components/ErrorToasts.vue"
 
     useHead({
         title: useRuntimeConfig().public.siteName,
@@ -23,6 +24,7 @@
         <ActionButtons />
     </CenterContent>
     <Footer />
+    <ErrorToasts />
 </template>
 
 <style lang="scss" scoped>

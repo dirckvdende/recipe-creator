@@ -1,4 +1,5 @@
 
+import { displayError, ErrorLevel } from "./errors";
 import { recipe, type IngredientsSection, type Recipe, type TextSection,
 type ImageSection, type RecipeSection, type Ingredient } from "./recipe";
 import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
@@ -32,7 +33,10 @@ export function exportDialog() {
         downloadLink.download = `${toValidFilename(recipe.title)}.recipe`
         downloadLink.click()
         URL.revokeObjectURL(url)
-    })
+    }).catch((reason) => displayError({
+        level: ErrorLevel.Error,
+        content: `${reason}`,
+    }))
 }
 
 /**
@@ -60,7 +64,10 @@ export function importDialog() {
         file.arrayBuffer().then((buffer) =>
             deserializeRecipe(new Uint8Array(buffer)).then((loadedRecipe) =>
                 Object.assign(recipe, loadedRecipe)
-            )
+            ).catch((reason) => displayError({
+                level: ErrorLevel.Error,
+                content: `${reason}`
+            }))
         )
     })
     inputElement.click()
