@@ -52,7 +52,7 @@ function toValidFilename(str: string): string {
 export function importDialog() {
     const inputElement = document.createElement("input")
     inputElement.type = "file"
-    inputElement.accept = "*.recipe"
+    inputElement.accept = ".recipe"
     inputElement.addEventListener("change", () => {
         if (inputElement.files == null || inputElement.files.length == 0)
             return
