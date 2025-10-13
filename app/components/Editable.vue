@@ -57,14 +57,16 @@
     .element {
         position: relative;
         outline: none;
+        --left-right: -8pt;
+        --top-bottom: -4pt;
     }
     .element::before {
         content: "";
         position: absolute;
-        left: -8pt;
-        right: -8pt;
-        top: -4pt;
-        bottom: -4pt;
+        left: var(--left-right);
+        right: var(--left-right);
+        top: var(--top-bottom);
+        bottom: var(--top-bottom);
         pointer-events: none;
         border-radius: 3pt;
     }

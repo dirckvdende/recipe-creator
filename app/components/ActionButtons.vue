@@ -10,6 +10,27 @@
         })
     }
 
+    function addIngredientsSection() {
+        recipe.sections.push({
+            type: "ingredients",
+            title: "Ingredients",
+            ingredients: [{
+                amount: "1",
+                name: "onion",
+            }, {
+                amount: "1 clove",
+                name: "garlic",
+            }, {
+                amount: "150 g",
+                name: "white rice",
+            }]
+        })
+    }
+
+    function addStepsSection() {
+        // TODO
+    }
+
     function addImageSection() {
         const inputElement = document.createElement("input")
         inputElement.type = "file"
@@ -37,6 +58,7 @@
     }, {
         icon: "grocery",
         text: "Add ingredients",
+        action: addIngredientsSection,
     }, {
         icon: "format_list_numbered",
         text: "Add steps",
