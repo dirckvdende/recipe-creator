@@ -1,8 +1,6 @@
 
 import { recipe, type IngredientsSection, type Recipe, type TextSection,
-type ImageSection, 
-type RecipeSection,
-type Ingredient} from "./recipe";
+type ImageSection, type RecipeSection, type Ingredient } from "./recipe";
 import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
 } from "./uint8encoding.js";
 
