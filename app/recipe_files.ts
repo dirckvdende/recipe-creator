@@ -5,12 +5,21 @@ type ImageSection, type RecipeSection, type Ingredient } from "./recipe";
 import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
 } from "./uint8encoding.js";
 
+// Text that is inserted into the ID_BYTES at the start of every serialized file
+// This text can be used by people that open the file in a text editor and don't
+// know what it contains
+const ID_TEXT = ("Cooking Recipe Creator file. Do not modify using a text " +
+"editor. Visit https://dirckvdende.github.io/recipe-creator to read and " +
+"modify the file.")
+
 // Bytes that should be at the start of every recipe data file. Similar to PNG
 // files (see https://en.wikipedia.org/wiki/PNG#File_format)
-const ID_BYTES = new Uint8Array([0x89, 0x66, 0x61, 0x6d, 0x69, 0x6c, 0x79, 0x2d,
-0x74, 0x72, 0x65, 0x65, 0x0d, 0x0a, 0x1a, 0x0a]);
+const ID_BYTES = new Uint8Array([0x89].concat(
+    Array.from(ID_TEXT).map((char) => char.charCodeAt(0)),
+    [0x0d, 0x0a, 0x1a, 0x0a],
+))
 // Version number of encoding (stored as unsigned 64-bit)
-const ENCODING_VERSION = 5n;
+const ENCODING_VERSION = 6n
 
 // Names of section types
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients"]
@@ -24,6 +33,7 @@ sectionTypes.forEach((value, index) => sectionMapping.set(value, index))
  */
 export function exportDialog() {
     serializeRecipe(recipe).then((data) => {
+        console.log(data)
         const blob = new Blob([data], {
             type: "application/octet-stream",
         })
