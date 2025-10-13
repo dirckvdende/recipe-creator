@@ -18,7 +18,7 @@
     }
 
     // Extra empty item at the end of the list to be able to add items
-    let extraItem: Ingredient = reactive({amount: "", name: ""})
+    let extraItem: Ingredient = reactive({amount: "", name: "", checked: false})
 
     /**
      * Generator for all ingredients plus the extra item at the end (which is
@@ -26,7 +26,6 @@
      * @yields The ingredients in the order they are in the section
      */
     function* ingredients(): Generator<Ingredient> {
-        console.log("generator")
         for (const ingredient of section.ingredients)
             yield ingredient
         yield extraItem
@@ -41,7 +40,7 @@
         if (extraItem.amount == "" && extraItem.name == "")
             return
         section.ingredients.push(extraItem)
-        extraItem = reactive({amount: "", name: ""})
+        extraItem = reactive({amount: "", name: "", checked: false})
         console.log('watch extra')
     }
 
@@ -55,7 +54,10 @@
     replace-empty="Section title" />
     <ul :class="$style.list">
         <li v-for="ingredient in ingredients()">
-            <div :class="$style.checkbox" />
+            <div :class="[{[$style.checked]: ingredient.checked},
+            $style.checkbox]" @click="ingredient.checked = !ingredient.checked">
+                <span class="material-symbols-outlined">check</span>
+            </div>
             <Editable tag="span" :obj="ingredient" name="amount"
             :class="$style.amount" style="--top-bottom: -2pt;
             --left-right: -4pt;" @blur="filterEmptyIngredients" />
@@ -67,6 +69,7 @@
 </template>
 
 <style lang="scss" module>
+    @use "~/assets/scss/constants";
     .list {
         list-style: none;
         padding: 0;
@@ -74,6 +77,7 @@
         flex-direction: row;
         flex-wrap: wrap;
         width: 100%;
+        align-items: flex-start;
 
         li {
             padding: 0;
@@ -82,12 +86,26 @@
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
-            padding: 5pt 1em 0em 0;
+            padding: 5pt 1em 0 0;
             box-sizing: border-box;
+            align-items: flex-start;
+
+            &:nth-of-type(2n) {
+                padding-right: 0;
+            }
+
+            @media screen and (max-width: constants.$mobile-width) {
+                width: 100%;
+                padding: 5pt 0 0 0;
+            }
 
             &:last-child {
                 display: none;
                 @media screen { display: flex; }
+
+                .checkbox {
+                    opacity: 0;
+                }
             }
 
             .checkbox {
@@ -98,6 +116,24 @@
                 border: 2pt solid #999;
                 border-radius: 3pt;
                 margin-right: 12pt;
+                cursor: pointer;
+                user-select: none;
+
+                & > span {
+                    display: none;
+                    color: white;
+                    font-size: 1em;
+                }
+
+                &.checked {
+                    background-color: #51c26f;
+                    border-color: #3c9453;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    & > span { display: block; }
+                }
             }
 
             .amount {

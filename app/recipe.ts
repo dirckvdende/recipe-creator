@@ -22,8 +22,12 @@ export type ImageSection = {
  * Ingredients in an ingredients section
  */
 export type Ingredient = {
+    // An mount of an ingredient, e.g. "100 g"
     amount: string,
+    // The name of the ingredient
     name: string,
+    // Whether the checkbox next to the ingredient is checked
+    checked: boolean,
 }
 
 /**

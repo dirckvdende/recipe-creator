@@ -11,7 +11,7 @@ import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
 const ID_BYTES = new Uint8Array([0x89, 0x66, 0x61, 0x6d, 0x69, 0x6c, 0x79, 0x2d,
 0x74, 0x72, 0x65, 0x65, 0x0d, 0x0a, 0x1a, 0x0a]);
 // Version number of encoding (stored as unsigned 64-bit)
-const ENCODING_VERSION = 4n;
+const ENCODING_VERSION = 5n;
 
 // Names of section types
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients"]
@@ -198,6 +198,7 @@ IngredientsSection) {
     encoder.writeString(section.title)
     encoder.writeInt(section.ingredients.length, 4, false)
     for (const ingredient of section.ingredients) {
+        encoder.writeInt(ingredient.checked ? 1 : 0, 1, false)
         encoder.writeString(ingredient.amount)
         encoder.writeString(ingredient.name)
     }
@@ -216,6 +217,7 @@ IngredientsSection {
     const ingredients: Ingredient[] = []
     for (let i = 0; i < length; i++)
         ingredients.push({
+            checked: decoder.readInt(1, false) != 0n,
             amount: decoder.readString(),
             name: decoder.readString(),
         })
