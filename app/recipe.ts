@@ -94,33 +94,41 @@ export function resetRecipe() {
  */
 function defaultRecipe(): Recipe {
     return {
-        title: "Recipe",
+        title: "Recipe Creator",
         sections: [{
             type: "tags",
-            tags: ["kcal:750", "portions:4", "vegan:vegan"],
+            tags: ["kcal:350", "portions:4", "vegan:vegan"],
         }, {
             type: "text",
-            title: "Description",
-            content: "Lorem ipsum dolor sit, amet consectetur adipisicing " +
-            "elit. Consequatur mollitia accusantium aut magnam saepe illo " +
-            "tempore nulla voluptatum! Ex, culpa pariatur in tenetur nam " +
-            "corporis nulla. Est animi maxime expedita?",
-        }, {
-            type: "image",
-            url: "https://nutrenaworld.com/wp-content/uploads/2024/01/poultry_blog_why-keep-ducks_820x525.jpg",
+            title: "How to create a recipe",
+            content: "This is a simple web-app for creating printable " +
+            "cooking recipes. You can add sections by pressing the buttons " +
+            "below. Deleting/reordering sections can be done by hoving over " +
+            "a section and pressing the buttons on the side.\n\nWhen you " +
+            "create your recipe, don't forget to change the title and tags " +
+            "above! When you're done, press the 'print' button in the " +
+            "top-right corner.\n\nYour progress is not saved when you leave " +
+            "this webpage. To continue editing your recipe later, press the " +
+            "'export' button at the top and save the downloaded file. If you " +
+            "want to continue editing the recipe later you can press the " +
+            "'import' button and select the file you downloaded.",
         }, {
             type: "steps",
-            title: "Instructions",
+            title: "Quick start",
             steps: [{
                 type: "normal",
-                content: "Start chopping",
+                content: "Change the title and tags at the top.",
             }, {
                 type: "normal",
-                content: "Put it in a pan",
+                content: "Add text, ingredients, steps and images.",
             }, {
                 type: "normal",
-                content: "Eat",
-            }]
+                content: "Download/print your recipe by pressing 'print' in " +
+                "the top-right.",
+            }, {
+                type: "normal",
+                content: "Enjoy your recipe!",
+            }],
         }],
     }
 }
