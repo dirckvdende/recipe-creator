@@ -20,7 +20,15 @@
     }
 
     function addWaitStep(before?: RecipeStep) {
-        // TODO
+        const step: RecipeStep = {
+            type: "wait",
+            content: "Wait 10 min.",
+        }
+        const index = before == undefined ? -1 : section.steps.indexOf(before)
+        if (index == -1)
+            section.steps.push(step)
+        else
+            section.steps.splice(index, 0, step)
     }
 
     function deleteStep(step: RecipeStep) {
@@ -39,11 +47,27 @@
                 name="content" />
                 <ButtonRow :class="$style['step-buttons']" :buttons='[{
                     icon: "add",
-                    text: "Add step",
                     action: () => addNormalStep(step),
                 }, {
                     icon: "timer",
-                    text: "Add waiting time",
+                    action: () => addWaitStep(step),
+                }, {
+                    icon: "delete",
+                    action: () => deleteStep(step),
+                }]' :notab="true" />
+            </li>
+            <li :class="[$style.step, $style['wait-step']]" v-if="step.type ==
+            'wait'">
+                <div :class="$style.icon">
+                    <span class="material-symbols-outlined">timer</span>
+                </div>
+                <Editable tag="span" :class="$style['step-content']" :obj="step"
+                name="content" />
+                <ButtonRow :class="$style['step-buttons']" :buttons='[{
+                    icon: "add",
+                    action: () => addNormalStep(step),
+                }, {
+                    icon: "timer",
                     action: () => addWaitStep(step),
                 }, {
                     icon: "delete",
@@ -117,7 +141,7 @@
 
             .step-buttons {
                 position: absolute;
-                right: 0;
+                right: 1em;
                 top: -2em;
                 width: auto;
                 margin: 0;
@@ -131,6 +155,40 @@
             .step-buttons:not(.step:hover .step-buttons):not(.step-content:focus +
             .step-buttons) {
                 opacity: 0;
+            }
+        }
+
+        .wait-step {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            counter-increment: none;
+
+            .icon {
+                flex-shrink: 0;
+                flex-grow: 0;
+                margin-left: 2.5em;
+                width: 2em;
+                height: 2em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 1em;
+                background-color: #eee;
+                user-select: none;
+
+                & > span {
+                    font-size: 1.3em;
+                    color: #555;
+                }
+            }
+
+            .step-content {
+                flex-shrink: 1;
+                width: 100%;
+                margin: 0;
+                margin-left: 1em;
+                color: #555;
             }
         }
     }

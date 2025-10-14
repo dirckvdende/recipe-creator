@@ -26,8 +26,8 @@ const ENCODING_VERSION = 9n
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients",
 "tags", "steps"]
 // Inverse mapping from section types to indices
-const sectionMapping: Map<string, number> = new Map()
-sectionTypes.forEach((value, index) => sectionMapping.set(value, index))
+const sectionMapping = new Map(sectionTypes.entries().map(([index, value]) =>
+[value, index]))
 
 // https://stackoverflow.com/questions/72943268/typescript-compile-time-
 // validation-that-two-types-are-equal
@@ -319,13 +319,22 @@ function deserializeStepsSection(decoder: Uint8Decoder): StepsSection {
     }
 }
 
+// Different types of steps that are defined
+const stepTypes: RecipeStep["type"][] = ["normal", "wait"]
+// Inverse map from step type names to indices
+const stepMap = new Map(stepTypes.entries().map(([index, value]) => [value,
+index]))
+
 /**
  * Serialize a recipe step
  * @param encoder The encoder to write the serialized version to
  * @param section The step to serialize
  */
 function serializeStep(encoder: Uint8Encoder, step: RecipeStep) {
-    // NOTE: Currently there is only one type of step, so no need to encode it
+    const index = stepMap.get(step.type)
+    if (index == undefined)
+        throw new Error(`Cannot encode recipe step of type ${step.type}`)
+    encoder.writeInt(index, bytesNeededForRange(stepTypes.length), false)
     encoder.writeString(step.content)
 }
 
@@ -335,9 +344,15 @@ function serializeStep(encoder: Uint8Encoder, step: RecipeStep) {
  * @returns The deserialized step
  */
 function deserializeStep(decoder: Uint8Decoder): RecipeStep {
-    // NOTE: Currently there is only one type of step, so no need to decode it
+    const index = decoder.readInt(bytesNeededForRange(stepTypes.length), false)
+    if (index < 0 || index >= stepTypes.length)
+        throw new Error(`Cannot decode recipe step with encoded type ` +
+        `index ${index}`)
+    const value = stepTypes[Number(index)]
+    if (value == undefined)
+        throw new Error("Unexpected undefined value")
     return {
-        type: "normal",
+        type: value,
         content: decoder.readString(),
     }
 }

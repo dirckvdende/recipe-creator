@@ -51,7 +51,7 @@ export type TagsSection = {
  * A single step in a list of steps
  */
 export type RecipeStep = {
-    type: "normal",
+    type: "normal" | "wait",
     content: string,
 }
 
