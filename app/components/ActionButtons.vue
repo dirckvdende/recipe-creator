@@ -15,12 +15,15 @@
             type: "ingredients",
             title: "Ingredients",
             ingredients: [{
+                checked: false,
                 amount: "1",
                 name: "onion",
             }, {
+                checked: false,
                 amount: "1 clove",
                 name: "garlic",
             }, {
+                checked: false,
                 amount: "150 g",
                 name: "white rice",
             }]
@@ -48,6 +51,13 @@
         })
         inputElement.click()
     }
+
+    function addTagsSection() {
+        recipe.sections.push({
+            type: "tags",
+            tags: ["vegan", "lactose-free"],
+        })
+    }
 </script>
 
 <template>
@@ -62,9 +72,14 @@
     }, {
         icon: "format_list_numbered",
         text: "Add steps",
+        action: addStepsSection,
     }, {
         icon: "image",
         text: "Add image",
         action: addImageSection,
+    }, {
+        icon: "sell",
+        text: "Add tags",
+        action: addTagsSection,
     }]' />
 </template>

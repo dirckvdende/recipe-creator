@@ -79,6 +79,9 @@ function defaultRecipe(): Recipe {
     return {
         title: "Recipe",
         sections: [{
+            type: "tags",
+            tags: ["vegan", "lactose-free"],
+        },{
             type: "text",
             title: "Description",
             content: "Lorem ipsum dolor sit, amet consectetur adipisicing " +

@@ -6,7 +6,7 @@
         // Parent object to track
         obj?: {[key: string]: any},
         // Name of the property in the object
-        name?: string,
+        name?: string | number,
         // Replace any empty value on blur with the given value. Value only
         // consisting of whitespace are also replaced
         replaceEmpty?: string,

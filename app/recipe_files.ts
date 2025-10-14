@@ -20,7 +20,7 @@ const ID_BYTES = new Uint8Array([0x89].concat(
     [0x0d, 0x0a, 0x1a, 0x0a],
 ))
 // Version number of encoding (stored as unsigned 64-bit)
-const ENCODING_VERSION = 6n
+const ENCODING_VERSION = 7n
 
 // Names of section types
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients",
