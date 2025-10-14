@@ -10,7 +10,7 @@
     function addNormalStep(before?: RecipeStep) {
         const step: RecipeStep = {
             type: "normal",
-            content: "Type step text here...",
+            content: "Start typing here...",
         }
         const index = before == undefined ? -1 : section.steps.indexOf(before)
         if (index == -1)
@@ -22,7 +22,7 @@
     function addWaitStep(before?: RecipeStep) {
         const step: RecipeStep = {
             type: "wait",
-            content: "Wait 10 min.",
+            content: "Wait [x] min.",
         }
         const index = before == undefined ? -1 : section.steps.indexOf(before)
         if (index == -1)

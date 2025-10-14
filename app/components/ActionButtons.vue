@@ -6,7 +6,7 @@
         recipe.sections.push({
             type: "text",
             title: "Description",
-            content: "A great recipe!",
+            content: "Start typing here...",
         })
     }
 
@@ -16,16 +16,8 @@
             title: "Ingredients",
             ingredients: [{
                 checked: false,
-                amount: "1",
-                name: "onion",
-            }, {
-                checked: false,
-                amount: "1 clove",
-                name: "garlic",
-            }, {
-                checked: false,
-                amount: "150 g",
-                name: "white rice",
+                amount: "amount",
+                name: "name...",
             }]
         })
     }
@@ -36,7 +28,7 @@
             title: "Instructions",
             steps: [{
                 type: "normal",
-                content: "Type step text here...",
+                content: "Type here...",
             }]
         })
     }
@@ -62,7 +54,7 @@
     function addTagsSection() {
         recipe.sections.push({
             type: "tags",
-            tags: ["vegan", "lactose-free"],
+            tags: [],
         })
     }
 </script>
