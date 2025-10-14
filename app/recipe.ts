@@ -48,10 +48,27 @@ export type TagsSection = {
 }
 
 /**
+ * A single step in a list of steps
+ */
+export type RecipeStep = {
+    type: "normal",
+    content: string,
+}
+
+/**
+ * Recipe section with a list of steps
+ */
+export type StepsSection = {
+    type: "steps",
+    title: string,
+    steps: RecipeStep[],
+}
+
+/**
  * Generic type of any recipe section
  */
 export type RecipeSection = (TextSection | ImageSection | IngredientsSection |
-TagsSection)
+TagsSection | StepsSection)
 
 /**
  * Type of a recipe
@@ -81,7 +98,7 @@ function defaultRecipe(): Recipe {
         sections: [{
             type: "tags",
             tags: ["kcal:750", "portions:4", "vegan:vegan"],
-        },{
+        }, {
             type: "text",
             title: "Description",
             content: "Lorem ipsum dolor sit, amet consectetur adipisicing " +
@@ -91,6 +108,19 @@ function defaultRecipe(): Recipe {
         }, {
             type: "image",
             url: "https://nutrenaworld.com/wp-content/uploads/2024/01/poultry_blog_why-keep-ducks_820x525.jpg",
+        }, {
+            type: "steps",
+            title: "Instructions",
+            steps: [{
+                type: "normal",
+                content: "Start chopping",
+            }, {
+                type: "normal",
+                content: "Put it in a pan",
+            }, {
+                type: "normal",
+                content: "Eat",
+            }]
         }],
     }
 }

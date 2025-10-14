@@ -7,6 +7,7 @@
     import SideButtons from './SideButtons.vue';
     import ImageSection from './sections/ImageSection.vue';
     import TagsSection from './sections/TagsSection.vue';
+    import StepsSection from './sections/StepsSection.vue';
     const { section } = defineProps<{
         section: RecipeSection,
     }>()
@@ -49,6 +50,7 @@
         'ingredients'" />
         <ImageSection :section="section" v-if="section.type == 'image'" />
         <TagsSection :section="section" v-if="section.type == 'tags'" />
+        <StepsSection :section="section" v-if="section.type == 'steps'" />
         <SideButtons :class="$style['side-buttons']" :buttons='[{
             icon: "keyboard_arrow_up",
             action: moveUp,

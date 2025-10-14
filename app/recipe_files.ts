@@ -1,8 +1,8 @@
 
 import { displayError, ErrorLevel } from "./errors";
 import { recipe, type IngredientsSection, type Recipe, type TextSection,
-type ImageSection, type RecipeSection, type Ingredient, type TagsSection
-} from "./recipe";
+type ImageSection, type RecipeSection, type Ingredient, type TagsSection,
+type RecipeStep, type StepsSection } from "./recipe";
 import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
 } from "./uint8encoding.js";
 
@@ -20,11 +20,11 @@ const ID_BYTES = new Uint8Array([0x89].concat(
     [0x0d, 0x0a, 0x1a, 0x0a],
 ))
 // Version number of encoding (stored as unsigned 64-bit)
-const ENCODING_VERSION = 8n
+const ENCODING_VERSION = 9n
 
 // Names of section types
 const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients",
-"tags"]
+"tags", "steps"]
 // Inverse mapping from section types to indices
 const sectionMapping: Map<string, number> = new Map()
 sectionTypes.forEach((value, index) => sectionMapping.set(value, index))
@@ -113,6 +113,7 @@ async function serializeRecipe(recipe: Recipe): Promise<Uint8Array<ArrayBuffer>>
             case "ingredients": serializeIngredientsSection(encoder, section);
                 break
             case "tags": serializeTagsSection(encoder, section); break
+            case "steps": serializeStepsSection(encoder, section); break
             default:
                 staticAssert<typeof section extends never ? true : false>()
         }
@@ -153,6 +154,8 @@ async function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Promise<Recipe>
             case "ingredients": recipe.sections.push(
                 deserializeIngredientsSection(decoder)); break
             case "tags": recipe.sections.push(deserializeTagsSection(decoder));
+                break
+            case "steps": recipe.sections.push(deserializeStepsSection(decoder))
                 break
             default:
                 staticAssert<typeof sectionType extends never ? true : false>()
@@ -282,5 +285,59 @@ function deserializeTagsSection(decoder: Uint8Decoder): TagsSection {
     return {
         type: "tags",
         tags
+    }
+}
+
+/**
+ * Serialize a steps section in a recipe. Section type has already been encoded
+ * @param encoder The encoder to write the serialized version to
+ * @param section The section to serialize
+ */
+function serializeStepsSection(encoder: Uint8Encoder, section: StepsSection) {
+    encoder.writeString(section.title)
+    encoder.writeInt(section.steps.length, 4, false)
+    for (const step of section.steps)
+        serializeStep(encoder, step)
+}
+
+/**
+ * Deserialize a steps section in a recipe. Section type encoding has already
+ * been read
+ * @param decoder The decoder to get the serialized data from
+ * @returns The deserialized section
+ */
+function deserializeStepsSection(decoder: Uint8Decoder): StepsSection {
+    const title = decoder.readString()
+    const length = decoder.readInt(4, false)
+    const steps: RecipeStep[] = []
+    for (let i = 0; i < length; i++)
+        steps.push(deserializeStep(decoder))
+    return {
+        type: "steps",
+        title,
+        steps,
+    }
+}
+
+/**
+ * Serialize a recipe step
+ * @param encoder The encoder to write the serialized version to
+ * @param section The step to serialize
+ */
+function serializeStep(encoder: Uint8Encoder, step: RecipeStep) {
+    // NOTE: Currently there is only one type of step, so no need to encode it
+    encoder.writeString(step.content)
+}
+
+/**
+ * Deserialize a recipe step
+ * @param decoder The decoder to get the serialized data from
+ * @returns The deserialized step
+ */
+function deserializeStep(decoder: Uint8Decoder): RecipeStep {
+    // NOTE: Currently there is only one type of step, so no need to decode it
+    return {
+        type: "normal",
+        content: decoder.readString(),
     }
 }

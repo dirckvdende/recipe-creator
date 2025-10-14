@@ -31,7 +31,14 @@
     }
 
     function addStepsSection() {
-        // TODO
+        recipe.sections.push({
+            type: "steps",
+            title: "Instructions",
+            steps: [{
+                type: "normal",
+                content: "Type step text here...",
+            }]
+        })
     }
 
     function addImageSection() {
