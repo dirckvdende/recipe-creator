@@ -20,6 +20,9 @@
             padding: 0 1cm;
             margin-top: 6em;
         }
+        @media screen and (max-width: constants.$mobile-width) {
+            margin-top: 8em;
+        }
 
         & > div {
             width: 100%;

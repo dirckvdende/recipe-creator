@@ -82,7 +82,14 @@
     }
     :global(.section:hover) .element::before,
     :global(.active-section) .element::before {
-        @media screen { border: 1.5pt dashed #ddd; }
+        @media screen {
+            border: 1.5pt dashed #ddd;
+        }
+    }
+    @media screen and ((pointer: none) or (pointer: coarse)) {
+        .element::before {
+            border: 1.5pt dashed #ddd;
+        }
     }
     .element:hover::before {
         border: 1.5pt dashed #aaa !important;

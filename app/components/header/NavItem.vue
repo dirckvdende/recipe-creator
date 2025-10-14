@@ -36,10 +36,17 @@
             cursor: pointer;
             background-color: transparent;
             font-family: inherit;
+            font-size: .7em;
+            @media screen and (max-width: constants.$mobile-width) {
+                padding: 0 .8em;
+            }
 
             .icon {
                 font-size: 1.7em;
                 @media screen and (max-width: 800px) { font-size: 2em; }
+                @media screen and (max-width: constants.$mobile-width) {
+                    font-size: 1.8em;
+                }
             }
             
             .text {

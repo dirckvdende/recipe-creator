@@ -78,12 +78,18 @@
         }
 
         @media screen and (max-width: constants.$mobile-width) {
-            flex-direction: column;
-            align-items: center;
-            padding: 1em 0;
-            height: auto;
 
-            .left { margin-bottom: 1em; }
+            .left h1 {
+                font-size: 1.2em;
+            }
+
+            .right {
+                height: auto;
+                
+                ul {
+                    height: auto;
+                }
+            }
         }
     }
 
