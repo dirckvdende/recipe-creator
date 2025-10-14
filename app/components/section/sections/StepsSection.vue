@@ -54,6 +54,7 @@
             counter-increment: item;
             position: relative;
             align-items: flex-start;
+            break-inside: avoid;
             
             .number {
                 flex-shrink: 0;
