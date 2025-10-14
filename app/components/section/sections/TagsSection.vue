@@ -175,6 +175,7 @@
         padding: 0;
         margin: .5em 0;
         justify-content: center;
+        break-inside: avoid;
 
         .tag {
             margin: 0 3pt 5pt 0;

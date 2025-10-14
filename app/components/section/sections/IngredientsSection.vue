@@ -99,6 +99,7 @@
             padding: 5pt 1em 0 0;
             box-sizing: border-box;
             align-items: flex-start;
+            break-inside: avoid;
 
             &:nth-of-type(2n) {
                 padding-right: 0;
