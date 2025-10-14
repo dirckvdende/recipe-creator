@@ -22,6 +22,11 @@ export default defineNuxtConfig({
                 rel: "stylesheet",
                 href: "https://fonts.googleapis.com/css2?family=Fredoka:wght" +
                 "@300..700&display=swap",
+            }, {
+                // Favicon
+                rel: "icon",
+                type: "image/x-icon",
+                href: "/favicon.png",
             }]
         }
     }
