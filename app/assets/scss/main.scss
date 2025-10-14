@@ -1,0 +1,23 @@
+
+@use "constants";
+
+body {
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 14pt;
+    margin: 0;
+}
+
+// Print page settings
+@page {
+    size: A4;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    margin: constants.$page-margin;
+}
+
+// Google icons
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
