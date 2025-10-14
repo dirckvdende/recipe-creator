@@ -1,17 +1,19 @@
 
 <script lang="ts" setup>
-    const { buttons } = defineProps<{
+    const { buttons, notab } = defineProps<{
         buttons: {
             action?: () => void,
             icon: string,
             text?: string,
         }[],
+        notab?: boolean,
     }>()
 </script>
 
 <template>
     <ul :class="$style['button-row']">
-        <li v-for="button in buttons"><button @click="button.action">
+        <li v-for="button in buttons"><button @click="button.action"
+        :tabindex="notab ? -1 : undefined">
             <span :class="$style.icon" class="material-symbols-outlined">
             {{ button.icon }}</span>
             <span :class="$style.text" v-if="button.text != undefined">
