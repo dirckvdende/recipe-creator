@@ -32,11 +32,11 @@
     }, {
         macro: "vegan",
         icon: "eco",
-        iconStyle: "font-variation-settings: 'FILL' 1;",
+        iconStyle: { fontVariationSettings: "'FILL' 1" },
     }, {
         macro: "vegetarian",
         icon: "eco",
-        iconStyle: "font-variation-settings: 'FILL' 0;",
+        iconStyle: { fontVariationSettings: "'FILL' 0" },
     }]
 
     /**
@@ -158,10 +158,10 @@
         </form>
     </ul>
     <p :class="$style['macro-text']">
-        Use time:[minutes] to indicate how long the recipe takes to make.
-        Use energy:[amount in kcal] to indicate the energy in (per portion
-        of) the dish. Use portions:[number] to indicate the number of
-        people/portions the recipe is for. 
+        Macros are available by adding a tag in the form [macro name]:[value].
+        The following macros can be used: <b>time:[minutes]</b>,
+        <b>kcal:[amount]</b>, <b>portions:[amount]</b>, <b>vegan:[text]</b>,
+        <b>vegetarian:[text]</b>.
     </p>
 </template>
 

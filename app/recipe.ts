@@ -80,7 +80,7 @@ function defaultRecipe(): Recipe {
         title: "Recipe",
         sections: [{
             type: "tags",
-            tags: ["vegan", "lactose-free"],
+            tags: ["kcal:750", "portions:4", "vegan:vegan"],
         },{
             type: "text",
             title: "Description",
