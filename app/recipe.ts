@@ -40,9 +40,18 @@ export type IngredientsSection = {
 }
 
 /**
+ * Recipe section with a list of tags
+ */
+export type TagsSection = {
+    type: "tags",
+    tags: string[],
+}
+
+/**
  * Generic type of any recipe section
  */
-export type RecipeSection = TextSection | ImageSection | IngredientsSection
+export type RecipeSection = (TextSection | ImageSection | IngredientsSection |
+TagsSection)
 
 /**
  * Type of a recipe

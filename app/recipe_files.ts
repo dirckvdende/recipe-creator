@@ -1,7 +1,8 @@
 
 import { displayError, ErrorLevel } from "./errors";
 import { recipe, type IngredientsSection, type Recipe, type TextSection,
-type ImageSection, type RecipeSection, type Ingredient } from "./recipe";
+type ImageSection, type RecipeSection, type Ingredient, type TagsSection
+} from "./recipe";
 import { Uint8Decoder, Uint8Encoder, bytesNeededForRange
 } from "./uint8encoding.js";
 
@@ -22,10 +23,15 @@ const ID_BYTES = new Uint8Array([0x89].concat(
 const ENCODING_VERSION = 6n
 
 // Names of section types
-const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients"]
+const sectionTypes: RecipeSection["type"][] = ["text", "image", "ingredients",
+"tags"]
 // Inverse mapping from section types to indices
 const sectionMapping: Map<string, number> = new Map()
 sectionTypes.forEach((value, index) => sectionMapping.set(value, index))
+
+// https://stackoverflow.com/questions/72943268/typescript-compile-time-
+// validation-that-two-types-are-equal
+function staticAssert<T extends true>() {}
 
 /**
  * Opens up the dialog for exporting/downloading the current recipe to a binary
@@ -98,7 +104,7 @@ async function serializeRecipe(recipe: Recipe): Promise<Uint8Array<ArrayBuffer>>
     for (const section of recipe.sections) {
         const index = sectionMapping.get(section.type)
         if (index == undefined)
-            throw new Error(`Not inverse mapping for section type ` +
+            throw new Error(`No inverse mapping for section type ` +
             `${section.type}`)
         encoder.writeInt(index, bytesNeededForRange(sectionTypes.length), false)
         switch (section.type) {
@@ -106,6 +112,9 @@ async function serializeRecipe(recipe: Recipe): Promise<Uint8Array<ArrayBuffer>>
             case "image": await serializeImageSection(encoder, section); break
             case "ingredients": serializeIngredientsSection(encoder, section);
                 break
+            case "tags": serializeTagsSection(encoder, section); break
+            default:
+                staticAssert<typeof section extends never ? true : false>()
         }
     }
     return encoder.data
@@ -143,6 +152,10 @@ async function deserializeRecipe(data: Uint8Array<ArrayBuffer>): Promise<Recipe>
                 decoder)); break
             case "ingredients": recipe.sections.push(
                 deserializeIngredientsSection(decoder)); break
+            case "tags": recipe.sections.push(deserializeTagsSection(decoder));
+                break
+            default:
+                staticAssert<typeof sectionType extends never ? true : false>()
         }
     }
     return recipe
@@ -241,5 +254,33 @@ IngredientsSection {
         type: "ingredients",
         title,
         ingredients,
+    }
+}
+
+/**
+ * Serialize a tags section in a recipe. Section type has already been encoded
+ * @param encoder The encoder to write the serialized version to
+ * @param section The section to serialize
+ */
+function serializeTagsSection(encoder: Uint8Encoder, section: TagsSection) {
+    encoder.writeInt(section.tags.length, 4, false)
+    for (const tag of section.tags)
+        encoder.writeString(tag)
+}
+
+/**
+ * Deserialize a tags section in a recipe. Section type encoding has already
+ * been read
+ * @param decoder The decoder to get the serialized data from
+ * @returns The deserialized section
+ */
+function deserializeTagsSection(decoder: Uint8Decoder): TagsSection {
+    const length = decoder.readInt(4, false)
+    const tags: string[] = []
+    for (let i = 0; i < length; i++)
+        tags.push(decoder.readString())
+    return {
+        type: "tags",
+        tags
     }
 }
