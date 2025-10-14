@@ -260,6 +260,7 @@
         font-size: .7em;
         font-style: italic;
         display: none;
-        @media screen { display: initial; }
+        line-height: 1.3;
+        @media screen { display: block; }
     }
 </style>
