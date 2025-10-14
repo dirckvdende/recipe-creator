@@ -193,13 +193,8 @@
         }
     }
 
-    .bottom-buttons:not(:global(.active-section) .bottom-buttons):not(
-    :global(.section:hover) .bottom-buttons) {
-        opacity: 0;
-    }
-
     .bottom-buttons {
-        margin-top: 0;
+        margin: 0;
     }
 
 </style>
