@@ -12,9 +12,12 @@ body {
 // Print page settings
 @page {
     size: A4;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
     margin: constants.$page-margin;
+}
+
+* {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
 }
 
 // Google icons
