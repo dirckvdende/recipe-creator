@@ -39,7 +39,6 @@ function staticAssert<T extends true>() {}
  */
 export function exportDialog() {
     serializeRecipe(recipe).then((data) => {
-        console.log(data)
         const blob = new Blob([data], {
             type: "application/octet-stream",
         })
