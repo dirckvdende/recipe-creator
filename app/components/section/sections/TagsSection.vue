@@ -159,9 +159,8 @@
     </ul>
     <p :class="$style['macro-text']">
         Macros are available by adding a tag in the form [macro name]:[value].
-        The following macros can be used: <b>time:[minutes]</b>,
-        <b>kcal:[amount]</b>, <b>portions:[amount]</b>, <b>vegan:[text]</b>,
-        <b>vegetarian:[text]</b>.
+        The following macros can be used: time:[minutes], kcal:[amount],
+        portions:[amount], vegan:[text], vegetarian:[text].
     </p>
 </template>
 
