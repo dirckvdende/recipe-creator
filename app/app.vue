@@ -12,6 +12,16 @@
         title: useRuntimeConfig().public.siteName,
     })
 
+    useSeoMeta({
+        title: useRuntimeConfig().public.siteName,
+        ogTitle: useRuntimeConfig().public.siteName,
+        description: "Recipe design web app",
+        ogDescription: "Recipe design web app",
+        ogType: "website",
+        ogUrl: "https://dirck.dev/recipe-creator/",
+        ogImage: "https://dirck.dev/recipe-creator/recipe-creator-thumb.jpg",
+    })
+
     // Warning on page exit, when not in dev mode
     if (!import.meta.dev)
         window.addEventListener("beforeunload", (event) => {
