@@ -27,7 +27,23 @@ export default defineNuxtConfig({
                 rel: "icon",
                 type: "image/x-icon",
                 href: "./favicon.png",
-            }]
+            }],
+            meta: [{
+                property: "og:title",
+                content: "Recipe Creator",
+            }, {
+                property: "og:description",
+                content: "Recipe design web app",
+            }, {
+                property: "og:type",
+                content: "website",
+            }, {
+                property: "og:url",
+                content: "https://dirck.dev/recipe-creator/",
+            }, {
+                property: "og:image",
+                content: "https://dirck.dev/recipe-creator/recipe-creator-thumb.jpg",
+            }],
         }
     }
 })
