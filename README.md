@@ -14,3 +14,7 @@ Then run the development server using
 npm run dev
 ```
 Navigate to [http://localhost:3000/](http://localhost:3000/) to view the development server.
+
+## Recipe file format
+
+For the import/export feature a custom file format is used. Documentation on this format can be found in [docs/file_format](./docs/file_format/).
