@@ -60,7 +60,7 @@ export function exportDialog() {
  * @returns The string with special characters removed
  */
 function toValidFilename(str: string): string {
-    return str.replace(/[^a-zA-Z0-9 _-]/g, "")
+    return str.replace(/[^a-zA-Z0-9 \-_()]/g, "_")
 }
 
 /**
