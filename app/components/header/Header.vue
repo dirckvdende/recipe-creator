@@ -1,12 +1,25 @@
 
 <script setup lang="ts">
-    import { resetRecipe } from '~/recipe';
+    import { resetRecipe, recipe } from '~/recipe';
     import { importDialog, exportDialog } from '~/recipe_files';
     import NavItem from './NavItem.vue';
 
     function printAction(): void {
         window.print()
     }
+
+    // We set the document title before print so the downloaded PDF title will
+    // (likely) be set to the recipe title and not the title of the website
+    let oldTitle: string | null = null
+    window.addEventListener("beforeprint", () => {
+        oldTitle = document.title
+        document.title = recipe.title
+    })
+    window.addEventListener("afterprint", () => {
+        if (oldTitle != null)
+            document.title = oldTitle
+        oldTitle = null
+    })
 </script>
 
 <template>
