@@ -48,12 +48,27 @@ export type TagsSection = {
 }
 
 /**
- * A single step in a list of steps
+ * A normal step in a list of steps
  */
-export type RecipeStep = {
-    type: "normal" | "wait",
+export type NormalRecipeStep = {
+    type: "normal",
     content: string,
 }
+
+/**
+ * A wait step in a list of steps
+ */
+export type WaitRecipeStep = {
+    type: "wait",
+    content: string,
+}
+
+/**
+ * A single step in a list of steps
+ */
+export type RecipeStep =
+    | NormalRecipeStep
+    | WaitRecipeStep
 
 /**
  * Recipe section with a list of steps
@@ -67,8 +82,12 @@ export type StepsSection = {
 /**
  * Generic type of any recipe section
  */
-export type RecipeSection = (TextSection | ImageSection | IngredientsSection |
-TagsSection | StepsSection)
+export type RecipeSection =
+    | TextSection
+    | ImageSection
+    | IngredientsSection
+    | TagsSection
+    | StepsSection
 
 /**
  * Type of a recipe
