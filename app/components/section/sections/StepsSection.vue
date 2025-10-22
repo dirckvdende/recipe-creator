@@ -83,7 +83,7 @@
             <!-- Display final row of  action buttons to add to the end -->
             <ButtonRow
                 :class="$style['step-buttons']"
-                :buttons="addButtons(step)"
+                :buttons="addButtons()"
                 :notab="true"
                 v-if="index == section.steps.length - 1" />
         </template>
