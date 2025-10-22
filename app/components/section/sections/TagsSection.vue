@@ -189,6 +189,7 @@
             position: relative;
             overflow: hidden;
             user-select: none;
+            @media screen { padding-right: 2em; }
 
             .icon {
                 font-size: 1.2em;
@@ -211,6 +212,7 @@
                 background-color: #eee;
                 color: #333;
                 display: none;
+                @media screen { display: flex; }
                 cursor: pointer;
                 padding: 0 .4em 0 .3em;
 
@@ -221,10 +223,6 @@
                 & > span {
                     font-size: 1em;
                 }
-            }
-
-            &:hover .close-button {
-                display: flex;
             }
         }
 
