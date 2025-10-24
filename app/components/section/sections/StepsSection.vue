@@ -97,8 +97,6 @@
         counter-reset: item;
         margin: 0;
         position: relative;
-        display: flex;
-        flex-direction: column;
 
         .step {
             width: 100%;
